@@ -36,13 +36,12 @@
                 ?>
                 <div class="col-md-3">
                     <?php
-                    echo "<img src='".$product[$i]["img"]."' class='img-fluid rounded'>";
-                    echo "<h3>".$product[$i]["product_name"]."</h3>";
-                    echo "<span class='text-danger'>".number_format($product[$i]["price"])."円</span>";
+                    echo "<h3>".$goods[$i]["name"]."</h3>";
+                    echo "<span class='text-danger'>".number_format($goods[$i]["price"])."円</span>";
                     ?>
 
                     <form action="cart.php" class="mt-3" method="post">
-                        <input type="hidden" name="product_name" value="<?= $product[$i]["product_name"] ?>">
+                        <input type="hidden" name="name" value="<?= $goods[$i]["name"] ?>">
                         <select name="num">
                             <option value=1>1</option>
                             <option value=2>2</option>

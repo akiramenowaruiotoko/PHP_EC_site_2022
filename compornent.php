@@ -1,24 +1,20 @@
 <?php
-$product = [
+$goods = [
     [
-        "product_name" => "カタン" ,
-        "price" => 2570 ,
-        "img" => "img/1001.png"
+        "name" => "カタン" ,
+        "price" => 2570
     ],
     [
-        "product_name" => "宝石の煌き" ,
-        "price" => 5000 ,
-        "img" => "img/1002.png"
+        "name" => "宝石の煌き" ,
+        "price" => 5000
     ],
     [
-        "product_name" => "ニムト" ,
-        "price" => 1080 ,
-        "img" => "img/1003.png"
+        "name" => "ニムト" ,
+        "price" => 1080
     ],
     [
-        "product_name" => "犯人は踊る" ,
-        "price" => 3900 ,
-        "img" => "img/1004.png"
+        "name" => "犯人は踊る" ,
+        "price" => 3900
     ]
 ];
 
