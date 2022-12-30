@@ -17,6 +17,13 @@
     <title>PHP_EC_site_2022</title>
   </head>
   <body>
+    <!-- db -->
+    <?php //include("db.php"); ?>
+
+    <!-- history -->
+    <div><a href="history.php" class="h3">購入履歴</a></div>
+
+    <!-- main -->
     <div class="container text-center">
     <h1>Hello, Board game!</h1>
     <strong class="h6 text-danger"><a href="cart.php" class="text-danger">買い物カゴ</a>は、
@@ -32,7 +39,7 @@
 
     <div class="row">
             <?php
-            for($i=0;$i<4;$i++){
+            for($i=0;$i<5;$i++){
                 ?>
                 <div class="col-md-3">
                     <?php
