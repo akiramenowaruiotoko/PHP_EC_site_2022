@@ -1,8 +1,4 @@
 <?php
-// ブラウザでエラー確認が出来るようにします
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
-
 // INSERT文を変数に格納
 try {
     //データベース名、ユーザー名、パスワード
