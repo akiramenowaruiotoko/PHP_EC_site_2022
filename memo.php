@@ -22,15 +22,6 @@
     <title>PHP_EC_site_2022</title>
   </head>
   <body>
-    <!-- history -->
-    <div><a href="history.php" class="h3">購入履歴</a></div>
-    
-    <!-- list -->
-    <div><a href="list.php" class="h3">リスト</a></div>
-
-    <!-- category -->
-    <div><a href="category.php" class="h3">カテゴリー</a></div>
-
     <!-- main -->
     <div class="container text-center">
     <h1>Hello, Board game!</h1>
