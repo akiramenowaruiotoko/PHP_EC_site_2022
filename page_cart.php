@@ -4,7 +4,8 @@
 </div>
 <!-- 購入 -->
 <form method="post" action="index.php?page_select=page_history">
-        <div><input type="submit" name="submit" value="購入"></div>
+    <input type="hidden" name="delete" value="1">
+    <div><input type="submit" value="購入"></div>
     </form>
 <?php
 //DB INSERT
