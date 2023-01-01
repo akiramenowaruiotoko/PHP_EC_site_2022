@@ -25,7 +25,7 @@ $result_rows = $pdo->query($sql);
     <form method="post" action="index.php?page_select=page_cart">
         <div>goods_id <input type="text" name="goods_id" value="<?= "{$row['goods_id']}" ?>"></div>
         <div>num <input type="text" name="num" value="0"></div>
-        <div><input type="submit" name="submit" value="登録"></div>
+        <div><input type="submit" value="登録"></div>
     </form>
     <br>
     </div>

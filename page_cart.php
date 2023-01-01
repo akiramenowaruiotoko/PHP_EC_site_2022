@@ -2,10 +2,12 @@
 <div>
     <h1>cart</h1>
 </div>
-
+<!-- 購入 -->
+<form method="post" action="index.php?page_select=page_history">
+        <div><input type="submit" name="submit" value="購入"></div>
+    </form>
 <?php
-
-
+//DB INSERT
 try {
     //DB接続
     include("db_connect.php");
@@ -31,3 +33,18 @@ try {
 }
 
 ?>
+
+<?php
+
+//DB output cart
+
+echo "<h2>全リスト取得</h2>";
+$result_list = $pdo->query('SELECT * FROM cart');
+?>
+<?php
+foreach ( $result_list as $row ):
+    echo "goods_id: {$row['goods_id']} <br>";
+    echo "数量: {$row['num']} <br>";
+endforeach;
+?>
+

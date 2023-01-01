@@ -1,41 +1,43 @@
-<div><a href="index.php" class="h3">買い物を続ける</a></div>
-<h1>登録データ情報</h1>
+<div> history_page</div>
+<div>
+    <h1>history</h1>
+</div>
+
 <?php
-    //データベース名、ユーザー名、パスワード
-    $dsn = 'mysql:dbname=php_ec_site_2022;host=localhost;charset=utf8';
-    $user = 'root';
-    $password = 'root';
-
-    //MySQLのデータベースに接続
-    $pdo = new PDO($dsn, $user, $password);
 
 
-// テーブル個別goods_id 3 で呼び出す場合
-$goods_id = 3;
-$sql = "SELECT * FROM goods WHERE goods_id IN(".$goods_id.")";
-$result_rows = $pdo->query($sql);
+//DB DELETE
+try {
+    //DB接続
+    include("db_connect.php");
 
-// テーブル全行取得（データ取得）
-$result_list = $pdo->query('SELECT * FROM goods');
+    // DELETE文を変数に格納
+    $sql = "DELETE FROM cart";
+    //削除する値は空のまま、SQL実行の準備をする
+    $stmt = $pdo->prepare($sql);
+    //executeにセットしてSQLを実行
+    $stmt->execute();
+
+    echo "削除しました";
+} catch (PDOException $e) {
+    exit('データベースに接続できませんでした。' . $e->getMessage());
+}
+
 ?>
 
-<h2>全リスト取得</h2>
-<?php foreach ( $result_list as $row ): ?>
+<?php
 
-    <?= "goods_id: {$row['goods_id']} <br>" ?>
-    <?= "商品名: {$row['goods_name']} <br>" ?>
-    <?= "カテゴリー: {$row['category']} <br>"; ?>
-    <?= "金額: {$row['price']} <br>" ?>
+//DB output cart
 
-<?php endforeach; ?>
+echo "<h2>全リスト取得</h2>";
+$result_list = $pdo->query('SELECT * FROM cart');
+?>
+<?php
+foreach ( $result_list as $row ):
+    echo "goods_id: {$row['goods_id']} <br>";
+    echo "数量: {$row['num']} <br>";
+endforeach;
 
 
-<h2>個別データ取得</h2>
-<?php foreach ( $result_rows as $row ): ?>
 
-    <?= "goods_id: {$row['goods_id']} <br>" ?>
-    <?= "商品名: {$row['goods_name']} <br>" ?>
-    <?= "カテゴリー: {$row['category']} <br>"; ?>
-    <?= "金額: {$row['price']} <br>" ?>
-
-<?php endforeach; ?>
+?>
