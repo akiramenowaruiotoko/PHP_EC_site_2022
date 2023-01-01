@@ -21,9 +21,6 @@ include("header.php");
 //メインページ切り替え
 if(!empty($_GET['page_select'])){
   switch($_GET['page_select']){
-    case "page_list":
-      include("page_list.php");
-      break;
     case "page_category":
       include("page_category.php");
       break;

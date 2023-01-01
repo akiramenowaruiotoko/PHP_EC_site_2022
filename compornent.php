@@ -3,31 +3,31 @@ $goods = [
     [
         "goods_id" => 1,
         "category" => "ボードゲーム",
-        "name" => "カタン" ,
+        "goods_name" => "カタン" ,
         "price" => 2570
     ],
     [
         "goods_id" => 2,
         "category" => "カードゲーム",
-        "name" => "宝石の煌き" ,
+        "goods_name" => "宝石の煌き" ,
         "price" => 5000
     ],
     [
         "goods_id" => 3,
         "category" => "カードゲーム",
-        "name" => "ニムト" ,
+        "goods_name" => "ニムト" ,
         "price" => 1200
     ],
     [
         "goods_id" => 4,
         "category" => "カードゲーム",
-        "name" => "犯人は踊る" ,
+        "goods_name" => "犯人は踊る" ,
         "price" => 3900
     ],
     [
         "goods_id" => 5,
         "category" => "ボードゲーム",
-        "name" => "カルカソンヌ" ,
+        "goods_name" => "カルカソンヌ" ,
         "price" => 3200
     ]
 ];
