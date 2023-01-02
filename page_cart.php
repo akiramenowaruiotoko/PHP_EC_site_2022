@@ -19,11 +19,11 @@ try {
 
     // INSERT文を変数に格納
     $sql = "INSERT INTO cart (goods_id, num) VALUES (:goods_id, :num)";
-    //挿入する値は空のまま、SQL実行の準備をする
+    //挿入する値は空のまま、SQL実行の準備
     $stmt = $pdo->prepare($sql);
-    // 挿入する値を配列に格納する
+    // 挿入する値を配列に格納
     $params = array(':goods_id' => $goods_id, ':num' => $num);
-    //挿入する値が入った変数をexecuteにセットしてSQLを実行
+    //挿入する値が入った変数をexecuteにセットしてSQL実行
     $stmt->execute($params);
 
     echo "goods_id: ".$goods_id."<br>";
