@@ -4,32 +4,33 @@
 </div>
 <!-- DBカートテーブルへINSERT -->
 <?php
-try {
-    //DB接続
-    include("db_connect.php");
-
-    //page_category.phpの値を取得
-    $goods_id = $_POST['goods_id'];
-    $num = $_POST['num'];
-
-    // INSERT文を変数に格納
-    $sql = "INSERT INTO cart (goods_id, num) VALUES (:goods_id, :num)";
-    //挿入する値は空のまま、SQL実行の準備
-    $stmt = $pdo->prepare($sql);
-    // 挿入する値を配列に格納
-    $params = array(':goods_id' => $goods_id, ':num' => $num);
-    //挿入する値が入った変数をexecuteにセットしてSQL実行
-    $stmt->execute($params);
-    //実行結果を出力
-    echo "goods_id: ".$goods_id."<br>";
-    echo "num: ".$num."<br>";
-    echo "で登録しました";
-} catch (PDOException $e) {
-    exit('データベースに接続できませんでした。' . $e->getMessage());
+if(!isset($_SESSION)){
+    session_start();
 }
-?>
-
-<?php
+//DB接続
+include("db_connect.php");
+//"カートに入れる"ボタンを押されたか確認
+if(!empty($_POST['goods_id'])){
+    try {
+        //page_category.phpの値を取得
+        $goods_id = $_POST['goods_id'];
+        $num = $_POST['num'];
+        // INSERT文を変数に格納
+        $sql = "INSERT INTO cart (goods_id, num) VALUES (:goods_id, :num)";
+        //挿入する値は空のまま、SQL実行の準備
+        $stmt = $pdo->prepare($sql);
+        // 挿入する値を配列に格納
+        $params = array(':goods_id' => $goods_id, ':num' => $num);
+        //挿入する値が入った変数をexecuteにセットしてSQL実行
+        $stmt->execute($params);
+        //実行結果を出力
+        echo "goods_id: ".$goods_id."<br>";
+        echo "num: ".$num."<br>";
+        echo "で登録しました";
+    } catch (PDOException $e) {
+        exit('データベースに接続できませんでした。' . $e->getMessage());
+    }
+}
 //DBカートテーブルに登録された商品別合計数量を表示
 echo "<h2>全リスト取得</h2>";
 //DBカートテーブルのデータ呼び出し
@@ -60,12 +61,13 @@ foreach ( $result_list as $row ):
 endforeach;
 print_r($array);
 echo "<br>";
+$_SESSION['array'] = $array;
 ?>
 
-<!-- 購入を押したらカートの中身を削除 -->
+<!-- 購入 -->
 <br>
 <br>
 <form method="post" action="index.php?page_select=page_history">
-    <input type="hidden" name="delete" value="1">
+    <input type="hidden" name="purchase" value="1">
     <div><input type="submit" value="購入する"></div>
 </form>
