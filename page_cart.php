@@ -55,23 +55,34 @@ foreach ( $result_list as $row ):
     }
 endforeach;
 
+//カートデータ出力
+$total_fee = 0;
 if(!empty($array)){
-    foreach ( $array as $row ):
-        echo $row['goods_id'];
-        echo "<br>";
-        echo $row['num'];
-        echo "<br>";
-        echo "<br>";
+    foreach ( $array as $goods ):
+        //goods_idからgoodsデータ呼び出し
+        $goods_id = $goods['goods_id'];
+        $sql = "SELECT * FROM goods WHERE goods_id = '$goods_id'";
+        $result_rows = $pdo->query($sql);
+        foreach ( $result_rows as $row ):
+            //echo "goods_id: {$row['goods_id']} <br>";
+            echo "カテゴリー: {$row['category']} <br>";
+            echo "商品名: {$row['goods_name']} <br>";
+            echo "金額: {$row['price']} <br>";
+            echo "数量: {$goods['num']} <br><br>";
+        endforeach;
+            $total_fee += $row['price'] * $goods['num'];
     endforeach;
-    
+    echo "<div class='h3'>合計金額： ".number_format($total_fee)."円</div>";
+    //変数をセッションに格納
     $_SESSION['array'] = $array;
 }
 ?>
-
-<!-- 購入 -->
+<!-- 購入ボタン -->
 <br>
 <br>
 <form method="post" action="index.php?page_select=page_history">
     <input type="hidden" name="purchase" value="1">
     <div><input type="submit" value="購入する"></div>
 </form>
+<br>
+<div><a href="index.php?page_select=page_category&category=リスト" class="h3">買い物を続ける</a></div>

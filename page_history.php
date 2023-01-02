@@ -26,10 +26,6 @@ if(!empty($_POST['purchase']) && !empty($_SESSION['array'])){
             $params = array(':goods_id' => $goods_id, ':num' => $num);
             //挿入する値が入った変数をexecuteにセットしてSQL実行
             $stmt->execute($params);
-            //実行結果を出力
-            echo "goods_id: ".$goods_id."<br>";
-            echo "num: ".$num."<br>";
-            echo "で登録しました";
         } catch (PDOException $e) {
             exit('データベースに接続できませんでした。' . $e->getMessage());
         }
@@ -42,35 +38,13 @@ if(!empty($_POST['purchase']) && !empty($_SESSION['array'])){
         $stmt = $pdo->prepare($sql);
         //executeにセットしてSQLを実行
         $stmt->execute();
-        echo "カートを削除しました";
     } catch (PDOException $e) {
         exit('データベースに接続できませんでした。' . $e->getMessage());
     }
     //配列リセット
     $array = [];
 }
-echo "<h2>全リスト取得</h2>";
-//DBヒストリーテーブルのデータ呼び出し
-$result_list = $pdo->query('SELECT * FROM history');
-foreach ( $result_list as $row ):
-    echo $row['history_date'];
-    echo "<br>";
-    echo $row['goods_id'];
-    echo "<br>";
-    echo $row['num'];
-    echo "<br>";
-    echo "<br>";
-endforeach;
-?>
-<!-- 履歴削除 -->
-<br>
-<br>
-<form method="post" action="index.php?page_select=page_history">
-    <input type="hidden" name="history" value="1">
-    <div><input type="submit" value="履歴削除"></div>
-</form>
-<?php
-//DBヒストリーテーブルを削除する
+//削除ボタンを押したらDBヒストリーテーブルを削除する
 if(!empty($_POST['history'])){
     try {
         // DELETE文を変数に格納
@@ -84,4 +58,31 @@ if(!empty($_POST['history'])){
         exit('データベースに接続できませんでした。' . $e->getMessage());
     }
 }
+//DBヒストリーテーブルのデータ呼び出し
+$total_fee = 0;
+$array = $pdo->query('SELECT * FROM history');
+foreach ( $array as $goods ):
+    //goods_idからgoodsデータ呼び出し
+    $goods_id = $goods['goods_id'];
+    $sql = "SELECT * FROM goods WHERE goods_id = '$goods_id'";
+    $result_rows = $pdo->query($sql);
+    foreach ( $result_rows as $row ):
+        //echo "goods_id: {$row['goods_id']} <br>";
+        echo "購入日時: {$goods['history_date']} <br>";
+        echo "カテゴリー: {$row['category']} <br>";
+        echo "商品名: {$row['goods_name']} <br>";
+        echo "金額: {$row['price']} <br>";
+        echo "数量: {$goods['num']} <br><br>";
+    endforeach;
+        $total_fee += $row['price'] * $goods['num'];
+endforeach;
+echo "<div class='h3'>合計金額： ".number_format($total_fee)."円</div>";
 ?>
+<!-- 履歴削除 -->
+<br>
+<br>
+<form method="post" action="index.php?page_select=page_history">
+    <div><input type="submit" name="history" value="履歴削除"></div>
+</form>
+<br>
+<div><a href="index.php?page_select=page_category&category=リスト" class="h3">商品一覧へ</a></div>

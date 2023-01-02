@@ -1,7 +1,6 @@
 <!doctype html>
 <html lang="ja">
 <head>
-  <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>PHP_EC_site_2022</title>
@@ -11,9 +10,6 @@
 // ブラウザでエラー確認
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
-
-//セッションスタート
-session_start();
 
 //ヘッダー
 include("header.php");
