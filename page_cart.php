@@ -1,9 +1,7 @@
-<div> cart_page</div>
-<div>
-    <h1>cart</h1>
-</div>
+<h1>cart</h1>
 <!-- DBカートテーブルへINSERT -->
 <?php
+//セッションスタートしていたければスタート
 if(!isset($_SESSION)){
     session_start();
 }
@@ -23,10 +21,6 @@ if(!empty($_POST['goods_id'])){
         $params = array(':goods_id' => $goods_id, ':num' => $num);
         //挿入する値が入った変数をexecuteにセットしてSQL実行
         $stmt->execute($params);
-        //実行結果を出力
-        echo "goods_id: ".$goods_id."<br>";
-        echo "num: ".$num."<br>";
-        echo "で登録しました";
     } catch (PDOException $e) {
         exit('データベースに接続できませんでした。' . $e->getMessage());
     }
@@ -59,8 +53,15 @@ foreach ( $result_list as $row ):
         ];
     }
 endforeach;
-print_r($array);
-echo "<br>";
+
+foreach ( $array as $row ):
+    echo $row['goods_id'];
+    echo "<br>";
+    echo $row['num'];
+    echo "<br>";
+    echo "<br>";
+endforeach;
+
 $_SESSION['array'] = $array;
 ?>
 
