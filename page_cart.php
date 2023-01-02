@@ -2,18 +2,13 @@
 <div>
     <h1>cart</h1>
 </div>
-<!-- 購入 -->
-<form method="post" action="index.php?page_select=page_history">
-    <input type="hidden" name="delete" value="1">
-    <div><input type="submit" value="購入"></div>
-    </form>
+<!-- DBカートテーブルへINSERT -->
 <?php
-//DB INSERT
 try {
     //DB接続
     include("db_connect.php");
 
-    //index.phpの値を取得
+    //page_category.phpの値を取得
     $goods_id = $_POST['goods_id'];
     $num = $_POST['num'];
 
@@ -25,27 +20,52 @@ try {
     $params = array(':goods_id' => $goods_id, ':num' => $num);
     //挿入する値が入った変数をexecuteにセットしてSQL実行
     $stmt->execute($params);
-
+    //実行結果を出力
     echo "goods_id: ".$goods_id."<br>";
     echo "num: ".$num."<br>";
     echo "で登録しました";
 } catch (PDOException $e) {
     exit('データベースに接続できませんでした。' . $e->getMessage());
 }
-
 ?>
 
 <?php
-
-//DB output cart
-
+//DBカートテーブルに登録された商品別合計数量を表示
 echo "<h2>全リスト取得</h2>";
+//DBカートテーブルのデータ呼び出し
 $result_list = $pdo->query('SELECT * FROM cart');
-?>
-<?php
+//商品別合計数量を算出
 foreach ( $result_list as $row ):
-    echo "goods_id: {$row['goods_id']} <br>";
-    echo "数量: {$row['num']} <br>";
+    //買い物カゴが空ではない時
+    if(isset($array)){
+        //数量を追加=すでに買い物カゴに入っているのと、同じgoods_idがカゴに入っていた時
+        $array_id = array_column( $array, "goods_id" ) ;
+        if( in_array( $row['goods_id'] , $array_id) ){
+            $index = array_search( $row['goods_id'] , $array_id );
+            $array[$index]['num'] += $row['num'];
+        //新規登録=異なるgoods_idがカゴに入った時
+        }else{
+            $array[] = [
+                "goods_id" => $row['goods_id'] ,
+                "num" => $row['num']
+            ];
+        }
+    //配列作成=買い物カゴに初めて商品を入れる時
+    }else{
+        $array[] = [
+            "goods_id" => $row['goods_id'],
+            "num" => $row['num']
+        ];
+    }
 endforeach;
+print_r($array);
+echo "<br>";
 ?>
 
+<!-- 購入を押したらカートの中身を削除 -->
+<br>
+<br>
+<form method="post" action="index.php?page_select=page_history">
+    <input type="hidden" name="delete" value="1">
+    <div><input type="submit" value="購入する"></div>
+</form>
