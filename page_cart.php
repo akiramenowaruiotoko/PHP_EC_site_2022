@@ -1,5 +1,4 @@
 <h1>cart</h1>
-<!-- DBカートテーブルへINSERT -->
 <?php
 //セッションスタートしていたければスタート
 if(!isset($_SESSION)){
@@ -7,6 +6,8 @@ if(!isset($_SESSION)){
 }
 //DB接続
 include("db_connect.php");
+
+//DBカートテーブルへINSERT
 //"カートに入れる"ボタンを押されたか確認
 if(!empty($_POST['goods_id'])){
     try {
@@ -54,15 +55,17 @@ foreach ( $result_list as $row ):
     }
 endforeach;
 
-foreach ( $array as $row ):
-    echo $row['goods_id'];
-    echo "<br>";
-    echo $row['num'];
-    echo "<br>";
-    echo "<br>";
-endforeach;
-
-$_SESSION['array'] = $array;
+if(!empty($array)){
+    foreach ( $array as $row ):
+        echo $row['goods_id'];
+        echo "<br>";
+        echo $row['num'];
+        echo "<br>";
+        echo "<br>";
+    endforeach;
+    
+    $_SESSION['array'] = $array;
+}
 ?>
 
 <!-- 購入 -->

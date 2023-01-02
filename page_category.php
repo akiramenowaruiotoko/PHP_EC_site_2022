@@ -4,7 +4,11 @@ include("db_connect.php");
 
 // カテゴリー別呼び出し
 $category = $_GET['category'];
-$sql = "SELECT * FROM goods WHERE category = '$category'";
+if($category == "リスト"){
+    $sql = "SELECT * FROM goods";
+}else{
+    $sql = "SELECT * FROM goods WHERE category = '$category'";
+}
 $result_rows = $pdo->query($sql);
 ?>
 

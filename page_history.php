@@ -6,8 +6,8 @@ if(!isset($_SESSION)){
 }
 //DB接続
 include("db_connect.php");
-//購入ボタンを押したか確認
-if(!empty($_POST['purchase'])){
+//購入ボタンを押したか確認&cartデータがあるか確認
+if(!empty($_POST['purchase']) && !empty($_SESSION['array'])){
     echo "<p>ご購入ありがとうございました。</p>";
     $array = $_SESSION['array'];
     //セッション解放
