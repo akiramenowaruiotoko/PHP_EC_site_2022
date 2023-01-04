@@ -1,3 +1,4 @@
+<div style="padding: 25px; margin-bottom: 50px">
 <?php
 //セッションスタートしていたければスタート
 if(!isset($_SESSION)){
@@ -7,7 +8,7 @@ if(!isset($_SESSION)){
 include("db_connect.php");
 //購入ボタンを押したか確認&cartデータがあるか確認
 if(!empty($_POST['purchase']) && !empty($_SESSION['array'])){
-    echo "<p>ご購入ありがとうございました。</p>";
+    echo "<h1>ご購入ありがとうございました!!</h1>";
     $array = $_SESSION['array'];
     //セッション解放
     $_SESSION = array();
@@ -52,13 +53,12 @@ if(!empty($_POST['history'])){
         $stmt = $pdo->prepare($sql);
         //executeにセットしてSQLを実行
         $stmt->execute();
-        echo "履歴を削除しました";
+        echo "<h1>履歴を削除しました</h1>";
     } catch (PDOException $e) {
         exit('データベースに接続できませんでした。' . $e->getMessage());
     }
 }
 ?>
-<div style="padding: 25px; margin-bottom: 50px">
 <h1>history</h1>
 <?php
 //DBヒストリーテーブルのデータ呼び出し
