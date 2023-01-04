@@ -13,10 +13,8 @@
 // ブラウザでエラー確認
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
-
 //ヘッダー
 include("header.php");
-
 //メインページ切り替え
 if(!empty($_GET['page_select'])){
   switch($_GET['page_select']){
@@ -35,7 +33,6 @@ if(!empty($_GET['page_select'])){
   }else{
   include("page_first.php");
 }
-
 //フッター
 include("footer.php");
 ?>
